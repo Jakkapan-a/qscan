@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { ScanErrorBody, ScanResult } from "@/lib/scan/types";
+import type { Dictionary } from "../[lang]/dictionaries";
 
 /** Client-side ceiling; slightly above the API route's maxDuration. */
 const CLIENT_TIMEOUT_MS = 35_000;
@@ -32,8 +33,11 @@ function looksLikeDomain(value: string) {
   return /^[^\s.]+(\.[^\s.]+)+$/.test(host);
 }
 
+/** Localised client-side error messages (API errors come back in English from the server). */
+type ScanMessages = Pick<Dictionary["scanner"], "invalidDomain" | "timeout" | "network">;
+
 /** Holds scan state and the API call so any component under it can trigger or read a scan. */
-export function ScanProvider({ children }: { children: ReactNode }) {
+export function ScanProvider({ children, messages }: { children: ReactNode; messages: ScanMessages }) {
   const [domain, setDomain] = useState("");
   const [state, setState] = useState<ScanState>({ kind: "idle" });
   const abortRef = useRef<AbortController | null>(null);
@@ -41,7 +45,7 @@ export function ScanProvider({ children }: { children: ReactNode }) {
   async function runScan(target: string) {
     setDomain(target); // keep the input box in sync with what is being scanned
     if (!looksLikeDomain(target)) {
-      setState({ kind: "error", message: "Please enter a valid domain, e.g. example.com" });
+      setState({ kind: "error", message: messages.invalidDomain });
       return;
     }
 
@@ -82,9 +86,7 @@ export function ScanProvider({ children }: { children: ReactNode }) {
       if (controller.signal.aborted && !timedOut) return; // superseded by a newer scan
       setState({
         kind: "error",
-        message: timedOut
-          ? "The scan timed out. The server may be slow or blocking our probes."
-          : "Could not reach the SecureScan API. Check your connection and try again.",
+        message: timedOut ? messages.timeout : messages.network,
       });
     } finally {
       clearTimeout(timer);
@@ -99,6 +101,8 @@ export function ScanProvider({ children }: { children: ReactNode }) {
     // One-time sync from an external system (the URL) on mount; the single extra render is intended.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (initial) runScan(initial);
+    // Mount-only on purpose: re-running when runScan's identity changes would re-trigger the scan.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
