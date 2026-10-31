@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Main } from "@/components/layouts/main";
 import { Content } from "./_components/content";
+import pkg from "../../package.json";
 
 export default function Home() {
   return (
@@ -41,6 +42,11 @@ export default function Home() {
 
       <footer className="mt-auto pt-16 text-center text-xs text-zinc-600">
         Scans connect to port 443 of public hosts only. Results reflect the scanner&apos;s point of view at scan time.
+        <p className="mt-2 font-mono text-[11px] text-zinc-700">
+          <a href={pkg.homepage} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-300">
+            QScan v{pkg.version}
+          </a>
+        </p>
       </footer>
     </Main>
   );
