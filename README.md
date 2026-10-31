@@ -31,6 +31,8 @@
 
 Scans are shareable: the domain is kept in the URL (`/?s=example.com`), so a refresh or a shared link re-runs the same scan.
 
+Available in **English** (`/`) and **Thai** (`/th`). Page copy lives in `src/app/[lang]/dictionaries/*.json`; scan results are shown in English.
+
 ## Quick start
 
 **Requirements:** Node.js **24 or newer**, linked against **OpenSSL 3.5+**, which is required to test ML-KEM groups. Check with:
@@ -57,7 +59,7 @@ Open <http://localhost:3000> and enter a domain.
 | `npm start` | Serve the production build |
 | `npm run lint` | ESLint |
 
-No environment variables are required.
+No environment variables are required. `NEXT_PUBLIC_SITE_URL` (see `.env.local.example`) optionally overrides the public URL used for canonical links, Open Graph and the sitemap; it defaults to `https://qscan.meklink.com`.
 
 ## How a scan works
 
@@ -139,17 +141,24 @@ Errors return `{ "error": string, "code": string }`:
 
 ```text
 src/
+├─ proxy.ts                  Locale routing: / = English, /th = Thai, /en/* → /*
 ├─ app/
-│  ├─ layout.tsx              Root layout, wraps the app in <ScanProvider>
-│  ├─ page.tsx                Header, logo and <Content />
+│  ├─ [lang]/
+│  │  ├─ layout.tsx           Root layout, per-language metadata + hreflang, <ScanProvider>
+│  │  ├─ page.tsx             Header, logo, language switch, <Content />, <About />
+│  │  ├─ dictionaries.ts      getDictionary(), locales
+│  │  └─ dictionaries/        en.json, th.json (page copy)
 │  ├─ api/scan/route.ts       POST /api/scan with rate limiting
+│  ├─ robots.ts, sitemap.ts   robots.txt and sitemap.xml (with language alternates)
 │  └─ _components/
 │     ├─ provider.tsx         Scan state, runScan(), ?s= URL sync
 │     ├─ content.tsx          Search form, loading and error states
+│     ├─ about.tsx            About + FAQ section and JSON-LD
 │     ├─ scan-results.tsx     Dashboard cards
 │     └─ badges.tsx           Status and grade badges
 ├─ components/layouts/main.tsx
 └─ lib/
+   ├─ site.ts                 Site URL, name, repo URL
    ├─ utils.ts                cn() and formatting helpers
    └─ scan/                   Server-only scan engine
       ├─ index.ts             scanDomain() orchestrator
