@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "playwright-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest", "--isolated"]
+    },
+    "nextjs-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest", "--isolated"]
+    }
+  }
+}
