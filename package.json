@@ -2,6 +2,15 @@
   "name": "qscan",
   "version": "0.1.0",
   "private": true,
+  "description": "TLS, certificate, post-quantum (ML-KEM) and HTTP security header scanner",
+  "license": "MIT",
+  "author": "Jakkapan-a",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jakkapan-a/qscan.git"
+  },
+  "homepage": "https://github.com/Jakkapan-a/qscan#readme",
+  "bugs": "https://github.com/Jakkapan-a/qscan/issues",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
