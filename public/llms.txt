@@ -1,0 +1,27 @@
+# QScan
+
+> QScan (https://qscan.meklink.com) is a free, open-source post-quantum TLS and security header checker. One scan tests TLS 1.0–1.3, post-quantum ML-KEM key exchange (X25519MLKEM768), the SSL certificate and HTTP security headers, then grades the site A+ to F.
+
+## What QScan checks
+
+- TLS versions: TLS 1.0, 1.1, 1.2 and 1.3. TLS 1.0/1.1 are flagged as insecure (deprecated by RFC 8996).
+- Post-quantum key exchange: X25519MLKEM768 and other ML-KEM groups (NIST FIPS 203).
+- SSL certificate: issuer, expiry and days remaining, key type and size, trust and hostname match.
+- Security headers: Strict-Transport-Security, Content-Security-Policy, X-Frame-Options and X-Content-Type-Options, each rated Protected, Weak or Missing.
+
+## Grading
+
+- A+ needs TLS 1.3, no legacy TLS, a valid certificate, strong HSTS and all four headers. ML-KEM support earns a bonus.
+- An untrusted, expired or mismatched certificate is always F. TLS 1.0/1.1 caps the grade at B.
+
+## Usage
+
+- English: https://qscan.meklink.com
+- Thai: https://qscan.meklink.com/th
+- Link a result: https://qscan.meklink.com/?s=example.com
+- Free, nothing stored. Only scan sites you own or are allowed to test.
+
+## Links
+
+- [Source code and documentation](https://github.com/Jakkapan-a/qscan)
+- [License: MIT](https://github.com/Jakkapan-a/qscan/blob/main/LICENSE)

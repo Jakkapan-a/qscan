@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "title": "QScan – Post-Quantum TLS & Security Header Checker",
+    "description": "Is your site quantum-ready? Test TLS 1.0–1.3, ML-KEM (X25519MLKEM768), SSL certificates and security headers. Free. Graded A+ to F in seconds.",
+    "ogAlt": "QScan – Post-Quantum TLS & Security Header Checker"
+  },
+  "header": {
+    "badge": "TLS · Certificates · Post-Quantum · Headers",
+    "h1Suffix": " – Post-Quantum TLS & Security Header Checker",
+    "tagline": "Is your site quantum-ready? Scan TLS, certificates and headers in seconds."
+  },
+  "scanner": {
+    "label": "Domain",
+    "placeholder": "example.com",
+    "button": "Scan Security",
+    "scanning": "Scanning…",
+    "notice": "Only scan domains you own or are authorized to test.",
+    "probing": "Scanning",
+    "probingDetail": "TLS, ML-KEM, certificate, headers…",
+    "failed": "Scan failed",
+    "invalidDomain": "Enter a valid domain, e.g. example.com",
+    "timeout": "Timed out. The server is slow or blocking scans.",
+    "network": "Can't reach QScan. Check your connection and try again."
+  },
+  "about": {
+    "heading": "Is your HTTPS ready for quantum computers?",
+    "intro": "One scan. Four checks. One grade from A+ to F. Free and open source.",
+    "checks": [
+      { "title": "TLS versions", "body": "TLS 1.0 to 1.3. Old versions get flagged." },
+      { "title": "Post-quantum ML-KEM", "body": "Does your server speak X25519MLKEM768? Find out in seconds." },
+      { "title": "SSL certificate", "body": "Issuer, expiry, key strength, trust. Expiring soon? You'll know." },
+      { "title": "Security headers", "body": "HSTS, CSP, X-Frame-Options, X-Content-Type-Options. Protected, weak or missing." }
+    ],
+    "faqHeading": "FAQ",
+    "faq": [
+      {
+        "q": "What is post-quantum TLS?",
+        "a": "Encryption quantum computers can't break. The standard is X25519MLKEM768: classic X25519 plus ML-KEM-768 (NIST FIPS 203)."
+      },
+      {
+        "q": "Why care now?",
+        "a": "Attackers save encrypted traffic today and crack it when quantum computers arrive. Chrome, Firefox and Cloudflare already use ML-KEM. Your server should too."
+      },
+      {
+        "q": "Are TLS 1.0 and 1.1 still safe?",
+        "a": "No. Dead since 2021 (RFC 8996). Turn them off, or your grade stops at B."
+      },
+      {
+        "q": "Which security headers matter?",
+        "a": "HSTS, CSP, X-Frame-Options and X-Content-Type-Options. Missing or weak? QScan shows you."
+      },
+      {
+        "q": "How do I get an A+?",
+        "a": "TLS 1.3, no old TLS, a valid certificate, strong HSTS and all four headers in place. ML-KEM earns a bonus. A bad certificate is an instant F."
+      },
+      {
+        "q": "Is it safe? Is anything stored?",
+        "a": "Yes, it's safe: a scan looks like a normal visit. Nothing is stored. Only scan sites you own or may test."
+      }
+    ],
+    "source": "Open source on"
+  },
+  "footer": {
+    "note": "Public sites only. Results reflect the moment of the scan."
+  },
+  "nav": {
+    "language": "Language"
+  }
+}
