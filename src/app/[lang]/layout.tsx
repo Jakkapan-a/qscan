@@ -41,7 +41,8 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     title: { default: dict.meta.title, template: `%s | ${SITE_NAME}` },
     description: dict.meta.description,
     applicationName: SITE_NAME,
-    authors: [{ name: "Jakkapan-a", url: REPO_URL }],
+    appleWebApp: { title: SITE_NAME },
+    authors: [{ name: "Dev", url: REPO_URL }],
     category: "technology",
     keywords: [
       "post-quantum TLS test",
@@ -54,10 +55,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
       "Content-Security-Policy",
     ],
     alternates: {
-      // One canonical URL per language: /?s=<domain> result views point back to the
-      // language home page so third-party scan results are never indexed separately.
       canonical: localePath(lang),
-      // hreflang: tells search engines /, /th are translations of each other.
       languages: {
         ...Object.fromEntries(LOCALES.map((l) => [l, localePath(l)])),
         "x-default": "/",
@@ -94,7 +92,6 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
 
   return (
     <html lang={lang} className={cn(geistSans.variable, geistMono.variable, notoThai.variable, "h-full antialiased")}>
-      {/* @container/content drives the width breakpoints used by <Main> */}
       <body className="@container/content flex min-h-full flex-col">
         <ScanProvider messages={dict.scanner}>{children}</ScanProvider>
       </body>
